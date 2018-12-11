@@ -7,8 +7,8 @@ class DashboardsController < ApplicationController
     if params[:starttime]
       @starttime = params[:starttime].to_date.strftime("%Y-%m-%d")
       @endtime = (params[:endtime].to_date + 1).strftime("%Y-%m-%d")
-      @fb_end = (params[:endtime].to_date + 2).strftime("%Y-%m-%d")
-      @fb_start = (params[:starttime].to_date + 1).strftime("%Y-%m-%d")
+      @fb_end = (params[:endtime].to_date + 1).strftime("%Y-%m-%d")
+      @fb_start = (params[:starttime].to_date).strftime("%Y-%m-%d")
 
       @fb = FbDb.where(date: @fb_start..@fb_end)
       @ga = GaDb.where(date: @starttime..@endtime)
@@ -479,8 +479,7 @@ class DashboardsController < ApplicationController
     # 連到fb api
 
     # 取得最新的粉專讚數
-    @fans = FbDb.first(1).pluck(:fans)
-    
+    @fans = FbDb.first.fans
     
     # 粉絲專頁讚數折線圖
     @fans_adds_last_30d = FbDb.last(28).pluck(:fans_adds_day)

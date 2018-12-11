@@ -37,6 +37,10 @@ gem 'google-api-client'
 gem "koala"
 # export xls
 gem 'spreadsheet'
+# 固定排程
+gem 'sidekiq'
+gem 'sidekiq-scheduler', '~> 1'
+gem 'sinatra', :require => nil
 
 # web scraping
 gem 'mechanize'

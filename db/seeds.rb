@@ -14,30 +14,30 @@ User.create(email: "test@example.com", password: "12345678")
 # fb
 FbDb.destroy_all
 
-today = Date.today
+today = Date.today - 1 
 
 366.times do |i|
   date = today.strftime('%Y-%m-%d')
   FbDb.create(
     date: date,
-    fans: rand(1000...10000),
+    fans: rand(100000...1000000),
     fans_adds_day: rand(1...100),
     fans_losts_day: rand(1...10),
-    page_users_day: rand(10...1000),
-    posts_users_day: rand(10...1000),
+    page_users_day: rand(1000...10000),
+    posts_users_day: rand(1000...10000),
     fans_adds_week: rand(10...1000),
     fans_losts_week: rand(10...100),
-    page_users_week: rand(10...1000),
-    posts_users_week: rand(10...1000),
+    page_users_week: rand(10000...100000),
+    posts_users_week: rand(10000...100000),
     fans_adds_month: rand(100...10000),
     fans_losts_month: rand(100...10000),
-    page_users_month: rand(100...10000),
-    posts_users_month: rand(100...10000),
-    post_enagements_day: rand(1...100),
+    page_users_month: rand(100000...10000000),
+    posts_users_month: rand(100000...10000000),
+    post_enagements_day: rand(1...10),
     negative_users_day: rand(1...100),
-    post_enagements_week: rand(10...1000),
+    post_enagements_week: rand(10...100),
     negative_users_week: rand(10...1000),
-    post_enagements_month: rand(100...10000),
+    post_enagements_month: rand(100...1000),
     negative_users_month: rand(100...10000),
     link_clicks_day: rand(1...100),
     link_clicks_week: rand(10...1000),
@@ -78,7 +78,7 @@ today = Date.today - 1
     session_pageviews_day: rand(1...100),
     sessions_day: rand(1...100),
     bouce_rate_day: rand(0.01...1),
-    pageviews_day: rand(1...100),
+    pageviews_day: rand(1000...10000),
     avg_session_duration_day: rand(1...100),
     avg_time_on_page_day: rand(1...100),
     pageviews_per_session_day: rand(1...100),
@@ -102,10 +102,10 @@ today = Date.today - 1
     email_bounce: rand(0.01...1),
     social_bounce: rand(0.01...1),
     oganic_search_bounce: rand(0.01...1),
+    referral_bounce: rand(0.01...1),
     new_visitor: rand(1...1000),
     return_visitor: rand(1...1000),
-    referral_bounce: rand(1...1000),
-    single_session: rand(1...1000),
+    single_session: rand(100...900),
   )
   today = today - 1
 end
@@ -116,7 +116,7 @@ puts "create #{GaDb.count} ga data"
 # mailchimp
 MailchimpDb.destroy_all
 
-today = Date.today - 2
+today = Date.today - 1
 
 53.times do |i|
   date = today.strftime('%Y-%m-%d')
