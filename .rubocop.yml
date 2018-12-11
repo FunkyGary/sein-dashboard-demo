@@ -1,0 +1,150 @@
+Metrics/LineLength:
+  Max: 300
+
+Metrics/MethodLength:
+  Max: 20
+
+Metrics/AbcSize:
+  Max: 25
+
+Metrics/MethodLength:
+  Max: 25
+
+Metrics/AbcSize:
+  Max: 550
+
+Metrics/CyclomaticComplexity:
+  Max: 40
+
+Metrics/MethodLength:
+  Max: 250
+
+Metrics/PerceivedComplexity:
+  Max: 60
+
+Metrics/ParameterLists:
+  Max: 20
+
+Metrics/ClassLength:
+  Max: 400
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/BlockNesting:
+  Enabled: false
+
+Style/RedundantParentheses:
+  Enabled: false
+
+Style/BlockDelimiters:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: false
+
+Style/HashSyntax:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/NumericLiterals:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/IdenticalConditionalBranches:
+  Enabled: false
+
+Style/StringLiteralsInInterpolation:
+  Enabled: false
+
+Style/ExpandPathArguments:
+  Enabled: false
+
+Style/StderrPuts:
+  Enabled: false
+
+Style/IfInsideElse:
+  Enabled: false
+
+Style/ConditionalAssignment:
+  Enabled: false
+
+Style/PercentLiteralDelimiters:
+  Enabled: false
+
+Style/SymbolArray:
+  Enabled: false
+
+Style/BracesAroundHashParameters:
+  Enabled: false
+
+Style/RedundantReturn:
+  Enabled: false
+
+Style/WhileUntilModifier:
+  Enabled: false
+
+Style/Next:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/MixinUsage:
+  Exclude:
+    - bin/*
+
+Layout/EmptyLines:
+  Enabled: false
+
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: false
+
+Layout/TrailingWhitespace:
+  Enabled: false
+
+Layout/AlignHash:
+  Enabled: false
+
+Layout/ClosingParenthesisIndentation:
+  Enabled: false
+
+Layout/FirstParameterIndentation:
+  Enabled: false
+
+Layout/SpaceInsideArrayLiteralBrackets:
+  Enabled: false
+
+Layout/EmptyLinesAroundClassBody:
+  Enabled: false
+
+Lint/UselessAssignment:
+  Enabled: false
+
+Layout/AlignParameters:
+  Enabled: false
+
+Layout/CommentIndentation:
+  Enabled: false
+
+Naming/UncommunicativeMethodParamName:
+  Enabled: false
+
+Naming/AccessorMethodName:
+  Enabled: false
+
+Naming/VariableNumber:
+  Enabled: false
+
+Lint/UnusedMethodArgument:
+  Enabled: false

@@ -1,0 +1,66 @@
+<div class="wrapper wrapper-content">
+  <div class="row">
+    <div class="col-lg-3">
+      <%= render partial: "shared/tab", locals: {idw: 'labelpagefansw',idm: 'labelpagefansm', title: '粉絲專頁讚數', data: @fans, rate: @fans_adds_week_rate, linechart: 'sparklinefansadds', percent: '%', content:'目前粉專讚數，折線圖為新增加的讚數，比例公式:( 這週(月)新讚數 - 上週(月)新讚數 ) / 上週(月)新讚數 。(週為昨天往前算7天，月為28天，使用篩選功能則呈現篩選期間加總、折線圖呈現每日變化)' } %>
+    </div>
+    <div class="col-lg-3">
+      <%= render partial: "shared/tab", locals: {idw: 'labelpageusersw',idm: 'labelpageusersm', title: '粉專曝光使用者', data: @page_users_week, rate: @page_users_week_rate, linechart: 'sparklinepageusers', percent: '%', content:'這週(月)看見粉專的使用者數目，折線圖為每天的人數，比例公式:( 這週(月)人數 - 上週(月)人數 ) / 上週(月)人數 。(週為昨天往前算7天，月為28天，使用篩選功能則呈現篩選期間加總、折線圖呈現每日變化)' } %>
+    </div>    
+    <div class="col-lg-3">
+      <%= render partial: "shared/tab", locals: {idw: 'labelpostsusersw',idm: 'labelpostsusersm', title: '粉專貼文觸及人數', data: @posts_users_week, rate: @posts_users_week_rate, linechart: 'sparklinepostsusers', percent: '%', content:'這週(月)接觸到粉專貼文的使用者數目，折線圖為每天人數，比例公式:( 這週(月)人數 - 上週(月)人數 ) / 上週(月)人數 。(週為昨天往前算7天，月為28天，使用篩選功能則呈現篩選期間加總、折線圖呈現每日變化)' } %>
+    </div>    
+    <div class="col-lg-3">
+      <%= render partial: "shared/tab", locals: {idw: 'labelnegativeusersw',idm: 'labelnegativeusersm', title: '粉專負面行動人數', data: @negative_users_week, rate: @negative_users_week_rate, linechart: 'sparklinenegativeusers', percent: '%', content:'這週(月)粉專中的負面行為(憤怒、退讚、檢舉等)使用者數目，折線圖為每天人數，比例公式:( 這週(月)人數 - 上週(月)人數 ) / 上週(月)人數 。(週為昨天往前算7天，月為28天，使用篩選功能則呈現篩選期間加總、折線圖呈現每日變化)' } %>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-lg-4">
+      <%= render partial: "shared/linechart", locals: {idw: 'labelfansretentionw',idm: 'labelfansretentionm', title: '粉絲黏著度分析', linechartid: 'lineChartfansretention', height:213, content:'這週(月)粉絲與貼文互動（心情、留言、分享等）比例，互動率公式:日(週)互動人數 / 日(週)觸及人數。(週為昨天往前算7天，月為前4周，使用篩選功能若篩選超過20天線圖呈現每周變化)' } %>
+    </div>
+    <div class="col-lg-4">
+      <%= render partial: "shared/linechart", locals: {idw: 'labellinkclicksw',idm: 'labellinkclicksm', title: '貼文點擊分析', linechartid: 'lineChartlinkclicks', height:213, content:'這週(月)貼文互動（心情、留言、分享等）數中連結點擊比例，互動率公式:日(週)連結點擊數 / 日(週)貼文互動觸數。(週為昨天往前算7天，月為前4周，使用篩選功能若篩選超過20天線圖呈現每周變化)' } %>
+    </div>
+    <div class="col-lg-4">
+      <%= render partial: "shared/top5", locals: {idw: 'labeltop5w',idm: 'labeltop5m', title: '最佳貼文', height:213, content:'依讚數、留言數、分享數做加權綜合分析，權重各為1、3、5，依此評分模式排出Top5的最佳貼文(週為昨天往前算7天，月為28天，使用篩選功能則依篩選期間變化)' } %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4">
+      <%= render partial: "shared/linechart", locals: {idw: 'labelfansaddsw',idm: 'labelfansaddsm', title: '粉專讚數趨勢', linechartid: 'lineChartfansadds', height:213, content:'這週(月)粉專新增讚數與退讚數趨勢。(週為昨天往前算7天，月為前4周，使用篩選功能若篩選超過20天線圖呈現每周變化)' } %>
+    </div>
+    <div class="col-lg-4">
+      <%= render partial: "shared/doughnutschart", locals: {id: 'labelfansgender', title: '粉絲男女比例', linechartid: 'lineChartfansgender', period:'Lifetime', height:213, content:'目前粉絲性別組成。(自粉專成立至昨天)' } %>
+    </div>
+    <div class="col-lg-4">
+      <%= render partial: "shared/hbarchartlifetimeonly", locals: {id: 'labelfansage', title: '粉絲年齡分佈', linechartid: 'barChartfansage', content:'目前粉絲年齡組成。（自粉專成立至昨天)' } %>
+    </div>
+
+  </div>
+
+</div>
+
+<% content_for :javascript do %>
+
+<script type="text/javascript">
+
+$(function() {
+  <%= render partial: "shared/tabclick", locals: {idw: '#labelpagefansw',idm: '#labelpagefansm', weekdata: @fans, monthdata: @fans, weekrate: @fans_adds_week_rate, monthrate: @fans_adds_month_rate, linechartid: '#sparklinefansadds', data7d: @fans_adds_last_7d, data30d: @fans_adds_last_30d} %>
+  <%= render partial: "shared/tabclick", locals: {idw: '#labelpageusersw',idm: '#labelpageusersm', weekdata: @page_users_week, monthdata: @page_users_month, weekrate: @page_users_week_rate, monthrate: @page_users_month_rate, linechartid: '#sparklinepageusers', data7d: @page_users_last_7d, data30d: @page_users_last_30d} %>
+  <%= render partial: "shared/tabclick", locals: {idw: '#labelpostsusersw',idm: '#labelpostsusersm', weekdata: @posts_users_week, monthdata: @posts_users_month, weekrate: @posts_users_week_rate, monthrate: @posts_users_month_rate, linechartid: '#sparklinepostsusers', data7d: @posts_users_last_7d, data30d: @posts_users_last_30d} %>
+  <%= render partial: "shared/tabclick", locals: {idw: '#labelnegativeusersw',idm: '#labelnegativeusersm', weekdata: @negative_users_week, monthdata: @negative_users_month, weekrate: @negative_users_week_rate, monthrate: @negative_users_month_rate, linechartid: '#sparklinenegativeusers', data7d: @negative_users_last_7d, data30d: @negative_users_last_30d} %>
+
+  <%= render partial: "shared/linechartclick", locals: {idw: '#labelfansretentionw',idm: '#labelfansretentionm', linechartid: 'lineChartfansretention', dataname: "lineDatafansretention", label1: "貼文觸及人數", label2: "貼文互動人數", label3: "互動率", last7ddate: @fb_last_7d_date, last30ddate: @fb_last_4w_date ,weekdata1: @posts_users_last_7d, weekdata2: @enagements_users_last_7d, monthdata1: @posts_users_last_4w, monthdata2: @enagements_users_last_4w, weekrate: @fans_retention_rate_7d, monthrate: @fans_retention_rate_30d} %>
+  <%= render partial: "shared/linechartclick2", locals: {idw: '#labelfansaddsw',idm: '#labelfansaddsm', linechartid: 'lineChartfansadds', dataname: "lineDatafansadds", label1: "淨讚數", label2: "退讚數", last7ddate: @fb_last_7d_date, last30ddate: @fb_last_4w_date ,weekdata1: @fans_adds_last_7d, weekdata2: @fans_losts_last_7d, monthdata1: @fans_adds_last_4w, monthdata2: @fans_losts_last_4w} %>
+  <%= render partial: "shared/top5click", locals: {idw: '#labeltop5w',idm: '#labeltop5m', } %>
+
+
+  <%= render partial: "shared/linechartclick", locals: {idw: '#labellinkclicksw',idm: '#labellinkclicksm', linechartid: 'lineChartlinkclicks', dataname: "lineDatalinkclicks", label1: "貼文互動總數", label2: "連結點擊數", label3: "連結點擊率", last7ddate: @fb_last_7d_date, last30ddate: @fb_last_4w_date ,weekdata1: @post_enagements_last_7d, weekdata2: @link_clicks_last_7d, monthdata1: @post_enagements_last_4w, monthdata2: @link_clicks_last_4w, weekrate: @link_clicks_rate_7d, monthrate: @link_clicks_rate_30d} %>
+  <%= render partial: "shared/doughnutschartclick", locals: {doughnutschartid: 'lineChartfansgender', dataname: "lineDatafansgender", label1: "男性粉絲", label2: "女性粉絲", data1: @fans_male_day, data2: @fans_female_day} %>
+  <%= render partial: "shared/hbarchartclicklifetimeonly", locals: { barchartid: 'barChartfansage', dataname: "barDatafansage", labelY1: "15-17", labelY2: "18-24", labelY3: "25-34", labelY4: "35-44", labelY5: "45-54", labelY6: "55-64", labelY7: "64+",labelX1: "人數", lifetimedata: @fans_age } %> 
+
+});
+</script>
+
+<% end %>
