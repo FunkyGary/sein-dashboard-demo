@@ -20,38 +20,38 @@
   <ul id="fbtop5" class="list-group clear-list m-t">
     <li class="list-group-item fist-item">
       <span class="pull-right">
-        <%= @week_top_posts[0][0] %>
+        <%= @week_top_posts[0].created_time.strftime("%Y-%m-%d") %>
       </span>
       <span class="label label-success">1</span>
-      <span><%= @week_top_posts[0][1] %></span>
+      <span><%= @week_top_posts[0].message %></span>
     </li>
     <li class="list-group-item">
       <span class="pull-right">
-        <%= @week_top_posts[1][0] %>
+        <%= @week_top_posts[1]. created_time.strftime("%Y-%m-%d") %>
       </span>
       <span class="label label-info">2</span>
-      <span><%= @week_top_posts[1][1] %></span>
+      <span><%= @week_top_posts[1].message %></span>
     </li>
     <li class="list-group-item">
       <span class="pull-right">
-        <%= @week_top_posts[2][0] %>
+        <%= @week_top_posts[2]. created_time.strftime("%Y-%m-%d") %>
       </span>
       <span class="label label-default">3</span>
-      <span><%= @week_top_posts[2][1] %></span>
+      <span><%= @week_top_posts[2].message %></span>
     </li>
     <li class="list-group-item">
       <span class="pull-right">
-        <%= @week_top_posts[3][0] %>
+        <%= @week_top_posts[3]. created_time.strftime("%Y-%m-%d") %>
       </span>
       <span class="label label-primary">4</span>
-      <span><%= @week_top_posts[3][1] %></span>
+      <span><%= @week_top_posts[3].message %></span>
     </li>
     <li class="list-group-item">
       <span class="pull-right">
-        <%= @week_top_posts[4][0] %>
+        <%= @week_top_posts[4]. created_time.strftime("%Y-%m-%d") %>
       </span>
       <span class="label label-primary">5</span>
-      <span><%= @week_top_posts[4][1] %></span>
+      <span><%= @week_top_posts[4].message %></span>
     </li>
   </ul>
 </div>

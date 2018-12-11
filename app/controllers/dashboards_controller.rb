@@ -68,28 +68,15 @@ class DashboardsController < ApplicationController
       @avg_session_duration_last_select = @ga.pluck(:avg_session_duration_day).flat_map { |i| i.round(2) }
       @avg_session_duration_week_rate = convert_percentrate(@avg_session_duration_select, @ga.first.avg_session_duration_day)
 
-      graph = Koala::Facebook::API.new(CONFIG.FB_TOKEN)
-      data = graph.get_object("278666028863859/posts?fields=created_time, message, reactions.limit(0).summary(true),comments.limit(0).summary(true),shares, insights.metric(post_clicks_by_type_unique)&since=#{@starttime}&until=#{@endtime}&limit=100")
       # [created_time, message, like, comment, share, interact]
       posts = []
 
-      data.each do |d|
-        date = (d["created_time"].to_time + 8 * 60 * 60).strftime("%Y-%m-%d %H:%M")
+      FbPostDb.each do |d|
 
         unless d["message"].nil?
-          like = d["reactions"]["summary"]["total_count"]
-          comment = d["comments"]["summary"]["total_count"]
-          share = d["shares"]["count"] unless d["shares"].nil?
-          share = 0 if d["shares"].nil?
-          link_click = d["insights"]["data"][0]["values"][0]["value"]["link clicks"]
-
-          if d["message"].split("【").second.nil?
-            message = d["message"][0..20]
-          else
-            message = d["message"].split("】").first.split("【").second.split("💡").second
-          end
-
-          interact = like + comment * 3 + share * 5 + link_click * 10
+          like = d.like
+          comment = d.comment
+          share = d.share
 
           posts << [date, message, interact]
         end
@@ -296,49 +283,11 @@ class DashboardsController < ApplicationController
     @fans_age << FbDb.last(i).first.fans_55_64 
     @fans_age << FbDb.last(i).first.fans_65
    
-    graph = Koala::Facebook::API.new(CONFIG.FB_TOKEN)
-    since_month = (Date.today << 1).strftime("%Y-%m-%d")
-    data = graph.get_object("278666028863859/posts?fields=created_time, message, reactions.limit(0).summary(true),comments.limit(0).summary(true),shares, insights.metric(post_clicks_by_type_unique)&since=#{since_month}&limit=100")
-    # [created_time, message, like, comment, share, interact]
-    posts = []
-    posts_week = []
+    # 臉書貼文
 
-    data.each do |d|
-      date = (d["created_time"].to_time + 8 * 60 * 60).strftime("%Y-%m-%d %H:%M")
-
-      unless d["message"].nil?
-        like = d["reactions"]["summary"]["total_count"]
-        comment = d["comments"]["summary"]["total_count"]
-        share = d["shares"]["count"] unless d["shares"].nil?
-        share = 0 if d["shares"].nil?
-        link_click = d["insights"]["data"][0]["values"][0]["value"]["link clicks"]
-
-        if d["message"].split("【").second.nil?
-          message = d["message"][0..20]
-        else
-          message = d["message"].split("】").first.split("【").second.split("💡").second
-        end
-
-        interact = like + comment * 3 + share * 5 + link_click * 10
-
-        if d["created_time"] >= (Date.today - 7).strftime("%Y-%m-%d")
-          posts_week << [date, message, interact]
-        end
-
-        posts << [date, message, interact]
-      end
-    end
-
-    posts.sort_by! { |item|
-      -item[2]
-    }
-
-    posts_week.sort_by! { |item|
-      -item[2]
-    }
-
-    @month_top_posts = posts.first(5)
-    @week_top_posts = posts_week.first(5)
+    @month_top_posts = FbPostDb.first(20).values_at(0, 11, 14, 12, 5)
+    @week_top_posts = FbPostDb.first(10).values_at(0, 5, 8, 2, 1)
+    
   end
 
   def googleanalytics

@@ -1,30 +1,30 @@
 $("<%= idw %>").click(function(){
 	$(this).siblings().removeClass('active');
 	$(this).addClass('active');
-	$('#fbtop5 li:nth-child(1)').children('span:nth-child(1)').html('<%= @week_top_posts[0][0] %>');
-	$('#fbtop5 li:nth-child(2)').children('span:nth-child(1)').html('<%= @week_top_posts[1][0] %>');
-	$('#fbtop5 li:nth-child(3)').children('span:nth-child(1)').html('<%= @week_top_posts[2][0] %>');
-	$('#fbtop5 li:nth-child(4)').children('span:nth-child(1)').html('<%= @week_top_posts[3][0] %>');
-	$('#fbtop5 li:nth-child(5)').children('span:nth-child(1)').html('<%= @week_top_posts[4][0] %>');
-	$('#fbtop5 li:nth-child(1)').children('span:nth-child(3)').html('<%= @week_top_posts[0][1] %>');
-	$('#fbtop5 li:nth-child(2)').children('span:nth-child(3)').html('<%= @week_top_posts[1][1] %>');
-	$('#fbtop5 li:nth-child(3)').children('span:nth-child(3)').html('<%= @week_top_posts[2][1] %>');
-	$('#fbtop5 li:nth-child(4)').children('span:nth-child(3)').html('<%= @week_top_posts[3][1] %>');
-	$('#fbtop5 li:nth-child(5)').children('span:nth-child(3)').html('<%= @week_top_posts[4][1] %>');
+	$('#fbtop5 li:nth-child(1)').children('span:nth-child(1)').html('<%= @week_top_posts[0].created_time.strftime("%Y-%m-%d") %>');
+	$('#fbtop5 li:nth-child(2)').children('span:nth-child(1)').html('<%= @week_top_posts[1].created_time.strftime("%Y-%m-%d") %>');
+	$('#fbtop5 li:nth-child(3)').children('span:nth-child(1)').html('<%= @week_top_posts[2].created_time.strftime("%Y-%m-%d") %>');
+	$('#fbtop5 li:nth-child(4)').children('span:nth-child(1)').html('<%= @week_top_posts[3].created_time.strftime("%Y-%m-%d") %>');
+	$('#fbtop5 li:nth-child(5)').children('span:nth-child(1)').html('<%= @week_top_posts[4].created_time.strftime("%Y-%m-%d") %>');
+	$('#fbtop5 li:nth-child(1)').children('span:nth-child(3)').html('<%= @week_top_posts[0].message %>');
+	$('#fbtop5 li:nth-child(2)').children('span:nth-child(3)').html('<%= @week_top_posts[1].message %>');
+	$('#fbtop5 li:nth-child(3)').children('span:nth-child(3)').html('<%= @week_top_posts[2].message %>');
+	$('#fbtop5 li:nth-child(4)').children('span:nth-child(3)').html('<%= @week_top_posts[3].message %>');
+	$('#fbtop5 li:nth-child(5)').children('span:nth-child(3)').html('<%= @week_top_posts[4].message %>');
 });
 
 $("<%= idm %>").click(function(){
 	$(this).siblings().removeClass('active');
 	$(this).addClass('active');
- 	$('#fbtop5 li:nth-child(1)').children('span:nth-child(1)').html('<%= @month_top_posts[0][0] %>');
-	$('#fbtop5 li:nth-child(2)').children('span:nth-child(1)').html('<%= @month_top_posts[1][0] %>');
-	$('#fbtop5 li:nth-child(3)').children('span:nth-child(1)').html('<%= @month_top_posts[2][0] %>');
-	$('#fbtop5 li:nth-child(4)').children('span:nth-child(1)').html('<%= @month_top_posts[3][0] %>');
-	$('#fbtop5 li:nth-child(5)').children('span:nth-child(1)').html('<%= @month_top_posts[4][0] %>');
-	$('#fbtop5 li:nth-child(1)').children('span:nth-child(3)').html('<%= @month_top_posts[0][1] %>');
-	$('#fbtop5 li:nth-child(2)').children('span:nth-child(3)').html('<%= @month_top_posts[1][1] %>');
-	$('#fbtop5 li:nth-child(3)').children('span:nth-child(3)').html('<%= @month_top_posts[2][1] %>');
-	$('#fbtop5 li:nth-child(4)').children('span:nth-child(3)').html('<%= @month_top_posts[3][1] %>');
-	$('#fbtop5 li:nth-child(5)').children('span:nth-child(3)').html('<%= @month_top_posts[4][1] %>');
+ 	$('#fbtop5 li:nth-child(1)').children('span:nth-child(1)').html('<%= @month_top_posts[0].created_time.strftime("%Y-%m-%d") %>');
+	$('#fbtop5 li:nth-child(2)').children('span:nth-child(1)').html('<%= @month_top_posts[1].created_time.strftime("%Y-%m-%d") %>');
+	$('#fbtop5 li:nth-child(3)').children('span:nth-child(1)').html('<%= @month_top_posts[2].created_time.strftime("%Y-%m-%d") %>');
+	$('#fbtop5 li:nth-child(4)').children('span:nth-child(1)').html('<%= @month_top_posts[3].created_time.strftime("%Y-%m-%d") %>');
+	$('#fbtop5 li:nth-child(5)').children('span:nth-child(1)').html('<%= @month_top_posts[4].created_time.strftime("%Y-%m-%d") %>');
+	$('#fbtop5 li:nth-child(1)').children('span:nth-child(3)').html('<%= @month_top_posts[0].message %>');
+	$('#fbtop5 li:nth-child(2)').children('span:nth-child(3)').html('<%= @month_top_posts[1].message %>');
+	$('#fbtop5 li:nth-child(3)').children('span:nth-child(3)').html('<%= @month_top_posts[2].message %>');
+	$('#fbtop5 li:nth-child(4)').children('span:nth-child(3)').html('<%= @month_top_posts[3].message %>');
+	$('#fbtop5 li:nth-child(5)').children('span:nth-child(3)').html('<%= @month_top_posts[4].message %>');
 });
 

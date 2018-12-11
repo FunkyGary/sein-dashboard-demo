@@ -170,3 +170,24 @@ AlexaDb.create(
 )
 
 puts "create #{AlexaDb.count} alexa data"
+
+# fb_post
+
+FbPostDb.destroy_all
+
+today = Date.today - 1
+
+366.times do |i|
+  date = today.strftime('%Y-%m-%d')
+  FbPostDb.create(
+    created_time: date,
+    message: SecureRandom.hex,
+    like: rand(1000...10000),
+    comment: rand(10...100),
+    share: rand(10...100),
+    interact: rand(100...1000),
+  )
+  today = today - 1
+end
+
+puts "create #{FbPostDb.count} fb_post data"

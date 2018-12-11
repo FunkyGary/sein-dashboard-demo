@@ -1,0 +1,2 @@
+class FbPostDb < ApplicationRecord
+end

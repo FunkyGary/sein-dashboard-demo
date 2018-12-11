@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181001055130) do
+ActiveRecord::Schema.define(version: 20181211095915) do
 
   create_table "alexa_dbs", force: :cascade do |t|
     t.integer "sein_rank"
@@ -86,6 +86,17 @@ ActiveRecord::Schema.define(version: 20181001055130) do
     t.integer "enagements_users_day"
     t.integer "enagements_users_week"
     t.integer "enagements_users_month"
+  end
+
+  create_table "fb_post_dbs", force: :cascade do |t|
+    t.datetime "created_time"
+    t.string "message"
+    t.integer "like"
+    t.integer "comment"
+    t.integer "share"
+    t.integer "interact"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "ga_dbs", force: :cascade do |t|
