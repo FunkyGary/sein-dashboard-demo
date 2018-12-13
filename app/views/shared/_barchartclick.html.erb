@@ -42,8 +42,8 @@ $("<%= idw %>").click(function(){
 			}],
 		}
 	};
-
-	new Chart(document.getElementById("<%= barchartid %>").getContext("2d"), {type: 'bar', data: <%= dataname %>, options:barOptions});
+	<%= barchartid %>.destroy();
+	<%= barchartid %> = new Chart(document.getElementById("<%= barchartid %>").getContext("2d"), {type: 'bar', data: <%= dataname %>, options:barOptions});
 });
 
 $("<%= idm %>").click(function(){
@@ -90,8 +90,8 @@ $("<%= idm %>").click(function(){
 			}],
 		}
 	};
-
-	new Chart(document.getElementById("<%= barchartid %>").getContext("2d"), {type: 'bar', data: <%= dataname %>, options:barOptions});
+	<%= barchartid %>.destroy();
+	<%= barchartid %> = new Chart(document.getElementById("<%= barchartid %>").getContext("2d"), {type: 'bar', data: <%= dataname %>, options:barOptions});
 });
 
 var <%= dataname %> = {
@@ -136,4 +136,4 @@ var barOptions = {
 	}
 };
 
-new Chart(document.getElementById("<%= barchartid %>").getContext("2d"), {type: 'bar', data: <%= dataname %>, options:barOptions});
+<%= barchartid %> =  new Chart(document.getElementById("<%= barchartid %>").getContext("2d"), {type: 'bar', data: <%= dataname %>, options:barOptions});

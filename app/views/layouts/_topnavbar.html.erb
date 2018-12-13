@@ -141,16 +141,16 @@ $('#submitdate').on('click', function () {
 					lineColor: '#1ab394',
 					fillColor: "#ffffff"
 				});
-				$('#fbtop5 li:nth-child(1)').children('span:nth-child(1)').html(data.select_top_posts[0][0]);
-				$('#fbtop5 li:nth-child(2)').children('span:nth-child(1)').html(data.select_top_posts[1][0]);
-				$('#fbtop5 li:nth-child(3)').children('span:nth-child(1)').html(data.select_top_posts[2][0]);
-				$('#fbtop5 li:nth-child(4)').children('span:nth-child(1)').html(data.select_top_posts[3][0]);
-				$('#fbtop5 li:nth-child(5)').children('span:nth-child(1)').html(data.select_top_posts[4][0]);
-				$('#fbtop5 li:nth-child(1)').children('span:nth-child(3)').html(data.select_top_posts[0][1]);
-				$('#fbtop5 li:nth-child(2)').children('span:nth-child(3)').html(data.select_top_posts[1][1]);
-				$('#fbtop5 li:nth-child(3)').children('span:nth-child(3)').html(data.select_top_posts[2][1]);
-				$('#fbtop5 li:nth-child(4)').children('span:nth-child(3)').html(data.select_top_posts[3][1]);
-				$('#fbtop5 li:nth-child(5)').children('span:nth-child(3)').html(data.select_top_posts[4][1]);
+				$('#fbtop5 li:nth-child(1)').children('span:nth-child(1)').html(data.select_top_posts_date[0]);
+				$('#fbtop5 li:nth-child(2)').children('span:nth-child(1)').html(data.select_top_posts_date[1]);
+				$('#fbtop5 li:nth-child(3)').children('span:nth-child(1)').html(data.select_top_posts_date[2]);
+				$('#fbtop5 li:nth-child(4)').children('span:nth-child(1)').html(data.select_top_posts_date[3]);
+				$('#fbtop5 li:nth-child(5)').children('span:nth-child(1)').html(data.select_top_posts_date[4]);
+				$('#fbtop5 li:nth-child(1)').children('span:nth-child(3)').html(data.select_top_posts[0].message);
+				$('#fbtop5 li:nth-child(2)').children('span:nth-child(3)').html(data.select_top_posts[1].message);
+				$('#fbtop5 li:nth-child(3)').children('span:nth-child(3)').html(data.select_top_posts[2].message);
+				$('#fbtop5 li:nth-child(4)').children('span:nth-child(3)').html(data.select_top_posts[3].message);
+				$('#fbtop5 li:nth-child(5)').children('span:nth-child(3)').html(data.select_top_posts[4].message);
 				var lineDatafansretention = {
 					labels: data.fb_last_select,
 					datasets: [

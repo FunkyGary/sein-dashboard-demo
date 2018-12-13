@@ -115,61 +115,52 @@ class ExportXls
     c = 1
 
     (data.size / 7).times do 
-      ga = GoogleAnalytics.new(data[i].date.strftime("%Y-%m-%d"), data[i + 6].date.strftime("%Y-%m-%d"))
-      user_type = ga.user_type_week
-      age = ga.bracket_week
-      pageview = ga.page_per_session_week
-      page_time = ga.avg_time_page_week
-      session = ga.avg_session_week
-      gender = ga.gender_week
-
-      gender_all = gender[1]["metrics"][0]["values"][0].to_f + gender[0]["metrics"][0]["values"][0].to_f
-
-      age_total = age["totals"][0]["values"][0].to_f
+      age_total = data[i + 6].female_user + data[i + 6].male_user
+      gender_total = data[i + 6].user_18_24 + data[i + 6].user_25_34 + data[i + 6].user_35_44 +  data[i + 6].user_45_54
 
       @sheet2.row(0).set_format(c, head)
       @sheet2[0, c] = "week#{c}"
       @sheet2[1, c] = "#{data[i].date.strftime("%m/%d")}-#{data[i + 6].date.strftime("%m/%d")}"
-      @sheet2[2, c] = data[i..i + 6].pluck(:sessions_day).reduce(:+)
+      @sheet2[2, c] = rand(1000...10000)
       @sheet2[3, c] = data[i + 6].web_users_week
-      @sheet2[4, c] = user_type[0]["metrics"][0]["values"][0].to_f
-      @sheet2[5, c] = user_type[1]["metrics"][0]["values"][0].to_f
+      @sheet2[4, c] = data[i + 6].new_visitor
+      @sheet2[5, c] = data[i + 6].return_visitor
       @sheet2.row(6).set_format(c, percent)
-      @sheet2[6, c] = user_type[1]["metrics"][0]["values"][0].to_f / (user_type[0]["metrics"][0]["values"][0].to_f + user_type[1]["metrics"][0]["values"][0].to_f).to_f
-      @sheet2[7, c] = data[i..i + 6].pluck(:pageviews_day).reduce(:+)
+      @sheet2[6, c] = data[i + 6].return_visitor / (data[i + 6].return_visitor + data[i + 6].new_visitor).to_f
+      @sheet2[7, c] = rand(1000...10000)
       @sheet2.row(8).set_format(c, round)
-      @sheet2[8, c] = pageview[0]["metrics"][0]["values"][0].to_f.round(2)
-      @sheet2[9, c] = "#{session[0]["metrics"][0]["values"][0].to_i / 60}分#{session[0]["metrics"][0]["values"][0].to_f.round(0) % 60}秒"
-      @sheet2[10, c] = data[i..i + 6].pluck(:sessions_day, :date).max[1].strftime("%a")
-      @sheet2[11, c] = "#{page_time[0]["metrics"][0]["values"][0].to_i / 60}分#{page_time[0]["metrics"][0]["values"][0].to_f.round(0) % 60}秒"
-      @sheet2[12, c] = data[i..i + 6].pluck(:oganic_search_day).reduce(:+)
+      @sheet2[8, c] = data[i + 6].avg_session_duration_day
+      @sheet2[9, c] = data[i + 6].avg_time_on_page_day * data[i + 6].avg_session_duration_day
+      @sheet2[10, c] = 'Sunday'
+      @sheet2[11, c] = data[i + 6].avg_time_on_page_day
+      @sheet2[12, c] = rand(100...1000)
       @sheet2.row(13).set_format(c, percent)
-      @sheet2[13, c] = data[i..i + 6].pluck(:oganic_search_day).reduce(:+) / data[i..i + 6].pluck(:sessions_day).reduce(:+).to_f
-      @sheet2[14, c] = data[i..i + 6].pluck(:social_user_day).reduce(:+)
+      @sheet2[13, c] = rand(0.1...1)
+      @sheet2[14, c] = rand(100...1000)
       @sheet2.row(15).set_format(c, percent)
-      @sheet2[15, c] = data[i..i + 6].pluck(:social_user_day).reduce(:+) / data[i..i + 6].pluck(:sessions_day).reduce(:+).to_f
-      @sheet2[16, c] = data[i..i + 6].pluck(:direct_user_day).reduce(:+)
+      @sheet2[15, c] = rand(0.1...1)
+      @sheet2[16, c] = rand(100...1000)
       @sheet2.row(17).set_format(c, percent)
-      @sheet2[17, c] = data[i..i + 6].pluck(:direct_user_day).reduce(:+) / data[i..i + 6].pluck(:sessions_day).reduce(:+).to_f
-      @sheet2[18, c] = data[i..i + 6].pluck(:referral_user_day).reduce(:+)
+      @sheet2[17, c] = rand(0.1...1)
+      @sheet2[18, c] = rand(100...1000)
       @sheet2.row(19).set_format(c, percent)
-      @sheet2[19, c] = data[i..i + 6].pluck(:referral_user_day).reduce(:+) / data[i..i + 6].pluck(:sessions_day).reduce(:+).to_f
+      @sheet2[19, c] = rand(0.1...1)
       @sheet2.row(20).set_format(c, percent)
-      @sheet2[20, c] = age["rows"][0]["metrics"][0]["values"][0].to_f / age_total
-      @sheet2[21, c] = age["rows"][0]["metrics"][0]["values"][0].to_f
+      @sheet2[20, c] = data[i + 6].user_18_24.to_f / age_total
+      @sheet2[21, c] = data[i + 6].user_18_24
       @sheet2.row(22).set_format(c, percent)
-      @sheet2[22, c] = age["rows"][1]["metrics"][0]["values"][0].to_f / age_total
-      @sheet2[23, c] = age["rows"][1]["metrics"][0]["values"][0].to_f
+      @sheet2[22, c] = data[i + 6].user_18_24.to_f / age_total
+      @sheet2[23, c] = data[i + 6].user_25_34
       @sheet2.row(24).set_format(c, percent)
-      @sheet2[24, c] = age["rows"][2]["metrics"][0]["values"][0].to_f / age_total
-      @sheet2[25, c] = age["rows"][2]["metrics"][0]["values"][0].to_f
+      @sheet2[24, c] = data[i + 6].user_18_24.to_f / age_total
+      @sheet2[25, c] = data[i + 6].user_35_44
       @sheet2.row(26).set_format(c, percent)
-      @sheet2[26, c] = age["rows"][3]["metrics"][0]["values"][0].to_f / age_total
-      @sheet2[27, c] = age["rows"][3]["metrics"][0]["values"][0].to_f
+      @sheet2[26, c] = data[i + 6].user_18_24.to_f / age_total
+      @sheet2[27, c] = data[i + 6].user_45_54
       @sheet2.row(28).set_format(c, percent)
       @sheet2.row(29).set_format(c, percent)
-      @sheet2[28, c] = gender[1]["metrics"][0]["values"][0].to_f / gender_all
-      @sheet2[29, c] = gender[0]["metrics"][0]["values"][0].to_f / gender_all
+      @sheet2[28, c] = data[i + 6].male_user / gender_total
+      @sheet2[29, c] = data[i + 6].female_user / gender_total
       @sheet3.column(c).width = 20
 
       i += 7
@@ -201,7 +192,7 @@ class ExportXls
       @sheet3[1, i] = d[0].strftime("%Y-%m-%d")
       @sheet3[2, i] = d[1]
       @sheet3.row(3).set_format(i, left)
-      @sheet3[3, i] = d[2].split('】').second
+      @sheet3[3, i] = SecureRandom.hex
       @sheet3[4, i] = d[3]
       @sheet3.row(5).set_format(i, percent)
       @sheet3[5, i] = d[4]
@@ -283,9 +274,7 @@ class ExportXls
     @sheet3[19, 5] = "#{data.womany_on_site / 60}分#{data.womany_on_site % 60}秒"
   end
 
-  def fb_post(since, before = Date.today.strftime("%Y-%m-%d"))
-    graph = Koala::Facebook::API.new(CONFIG.FB_TOKEN)
-    data = graph.get_object("278666028863859/posts?fields=created_time, message, reactions.limit(0).summary(true),comments.limit(0).summary(true),shares,insights.metric(post_impressions_unique, post_clicks_by_type_unique)&since=#{since}&until=#{before}&limit=100")
+  def fbpost(data)
 
     @sheet4.row(0).set_format(0, head)
     @sheet4[0, 0] = "發文日期"
@@ -295,25 +284,17 @@ class ExportXls
     @sheet4[4, 0] = "讚數"
     @sheet4[5, 0] = "留言數"
     @sheet4[6, 0] = "分享數"
-    @sheet4[7, 0] = "觸及人數"
-    @sheet4[8, 0] = "貼文互動次數"
-    @sheet4[9, 0] = "連結點擊次數"
-    @sheet4[10, 0] = "互動率"
-    @sheet4[11, 0] = "點擊率"
+    @sheet4[7, 0] = "貼文互動次數"
     @sheet4.column(0).width = 15
 
-    data.reverse!
     i = 1
     data.each do |d|
       unless d["message"].nil?
-        date = d["created_time"].to_time
-        like = d["reactions"]["summary"]["total_count"]
-        comment = d["comments"]["summary"]["total_count"]
-        share = d["shares"]["count"] unless d["shares"].nil?
-        share = 0 if d["shares"].nil?
-        interact = like + comment + share
-        reach = d["insights"]["data"][0]["values"][0]["value"]
-        click = d["insights"]["data"][1]["values"][0]["value"]["link clicks"]
+        date = d.created_time
+        like = d.like
+        comment = d.comment
+        share = d.share
+        interact = d.interact
 
         @sheet4.row(0).set_format(i, head)
         @sheet4[0, i] = date.strftime("%m/%d")
@@ -321,17 +302,11 @@ class ExportXls
         # 補時差
         @sheet4[2, i] = (date + 8 * 60 * 60).strftime("%H:%M")
         @sheet4.row(3).set_format(i, left)
-        @sheet4[3, i] = d["message"].split("【").second.split("】").first unless d["message"].split("【").second.nil?
+        @sheet4[3, i] = d.message
         @sheet4[4, i] = like
         @sheet4[5, i] = comment
         @sheet4[6, i] = share
-        @sheet4[7, i] = reach
-        @sheet4[8, i] = interact
-        @sheet4[9, i] = click
-        @sheet4.row(10).set_format(i, percent)
-        @sheet4[10, i] = interact / reach.to_f
-        @sheet4.row(11).set_format(i, percent)
-        @sheet4[11, i] = click / reach.to_f
+        @sheet4[7, i] = interact
         @sheet4.column(i).width = 15
         i += 1
       end

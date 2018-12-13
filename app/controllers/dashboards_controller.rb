@@ -7,13 +7,13 @@ class DashboardsController < ApplicationController
     if params[:starttime]
       @starttime = params[:starttime].to_date.strftime("%Y-%m-%d")
       @endtime = (params[:endtime].to_date + 1).strftime("%Y-%m-%d")
-      @fb_end = (params[:endtime].to_date + 1).strftime("%Y-%m-%d")
-      @fb_start = (params[:starttime].to_date).strftime("%Y-%m-%d")
+      @fb_start = (params[:starttime].to_date + 1).strftime("%Y-%m-%d")
+      @fb_end = (params[:endtime].to_date + 2).strftime("%Y-%m-%d")
 
       @fb = FbDb.where(date: @fb_start..@fb_end)
+      @fbpost = FbPostDb.where(created_time: @fb_start..@fb_end)
       @ga = GaDb.where(date: @starttime..@endtime)
       @mailchimp = MailchimpDb.where(date: @starttime..@endtime)
-      puts @mailchimp
 
       unless @mailchimp.empty?
         @mail_users_select = @mailchimp.last.email_sent
@@ -69,24 +69,8 @@ class DashboardsController < ApplicationController
       @avg_session_duration_week_rate = convert_percentrate(@avg_session_duration_select, @ga.first.avg_session_duration_day)
 
       # [created_time, message, like, comment, share, interact]
-      posts = []
-
-      FbPostDb.each do |d|
-
-        unless d["message"].nil?
-          like = d.like
-          comment = d.comment
-          share = d.share
-
-          posts << [date, message, interact]
-        end
-      end
-
-      posts.sort_by! { |item|
-        -item[2]
-      }
-
-      @select_top_posts = posts.first(5)
+      @select_top_posts = @fbpost.last(5)
+      @select_top_posts_date = @fbpost.last(5).map { |i| i.created_time.strftime("%Y-%m-%d")}
 
       if (@endtime.to_date - @starttime.to_date) > 20
         @posts_users_last_select = []
@@ -177,7 +161,8 @@ class DashboardsController < ApplicationController
         :negative_users_select => @negative_users_select, :negative_users_last_select => @negative_users_last_select, :negative_users_select_rate => @negative_users_select_rate,
         :fans_adds_last_select_week => @fans_adds_last_select_week, :fans_losts_last_select => @fans_losts_last_select, 
         :post_enagements_last_select => @post_enagements_last_select, :link_clicks_last_select => @link_clicks_last_select, :link_clicks_rate_select => @link_clicks_rate_select,
-        :select_top_posts => @select_top_posts, :posts_users_last_select_week => @posts_users_last_select_week,
+        :select_top_posts => @select_top_posts, :posts_users_last_select_week => @posts_users_last_select_week, 
+        :select_top_posts_date => @select_top_posts_date,
       # GA  
         :pageviews_select => @pageviews_select, :pageviews_last_select => @pageviews_last_select, :pageviews_select_rate => @pageviews_select_rate,
         :pageviews_per_session_select => @pageviews_per_session_select, :pageviews_per_session_last_select => @pageviews_per_session_last_select, :pageviews_per_session_select_rate => @pageviews_per_session_select_rate,
@@ -285,9 +270,9 @@ class DashboardsController < ApplicationController
    
     # 臉書貼文
 
-    @month_top_posts = FbPostDb.first(20).values_at(0, 11, 14, 12, 5)
-    @week_top_posts = FbPostDb.first(10).values_at(0, 5, 8, 2, 1)
-    
+    @month_top_posts = FbPostDb.last(20).values_at(0, 11, 14, 12, 5)
+    @week_top_posts = FbPostDb.last(10).values_at(0, 5, 8, 2, 1)
+
   end
 
   def googleanalytics
@@ -349,6 +334,7 @@ class DashboardsController < ApplicationController
     last_month_mon
 
     fb = FbDb.where(date: @last..@end)
+    fbpost = FbPostDb.where(created_time: @last..@end)
     ga = GaDb.where(date: @last..@end)
     mailchimp = MailchimpDb.where(date: @last..@end)
 
@@ -358,13 +344,13 @@ class DashboardsController < ApplicationController
     export_xls.ga_xls(ga)
     export_xls.mailchimp_xls(mailchimp)
     export_xls.alexa_xls(AlexaDb.last)
-    export_xls.fb_post(@last, @end)
+    export_xls.fbpost(fbpost)
     
     respond_to do |format|
       format.xls { 
         send_data(export_xls.export,
         :type => "text/excel; charset=utf-8; header=present",
-        :filename => "社企流#{(Date.today << 1).strftime("%m")[1]}月資料分析.xls")
+        :filename => "社企流11月資料分析.xls")
       }
     end
   end
@@ -383,6 +369,7 @@ class DashboardsController < ApplicationController
 
       fb = FbDb.where(date: @last..@endtime)
       ga = GaDb.where(date: @last..@endtime)
+      fbpost = FbPostDb.where(created_time: @last..@endtime)
       mailchimp = MailchimpDb.where(date: @starttime..@endtime)
 
       # export to xls
@@ -392,7 +379,7 @@ class DashboardsController < ApplicationController
       export_xls.ga_xls(ga) unless ga.nil?
       export_xls.mailchimp_xls(mailchimp) unless mailchimp.nil?
       export_xls.alexa_xls(AlexaDb.last)
-      export_xls.fb_post(@starttime, @endtime)
+      export_xls.fbpost(fbpost)
 
       respond_to do |format|
         format.xls { 

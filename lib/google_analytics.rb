@@ -11,14 +11,9 @@ class GoogleAnalytics
   def initialize(since, before)
     self.credentials = 
       Google::Auth::UserRefreshCredentials.new(
-      client_id: CONFIG.GOOGLE_API_KEY,
-      client_secret: CONFIG.GOOGLE_API_SECRET,
       scope: ["https://www.googleapis.com/auth/analytics.readonly"],
       additional_parameters: { "access_type" => "offline" }
     )
-
-    credentials.refresh_token = CONFIG.GOOGLE_REFRESH_TOKEN
-    credentials.fetch_access_token!
 
     self.analytics = AnalyticsReportingService.new
     analytics.authorization = credentials

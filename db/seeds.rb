@@ -14,7 +14,7 @@ User.create(email: "test@example.com", password: "12345678")
 # fb
 FbDb.destroy_all
 
-today = Date.today - 1 
+today = Date.today - 366 
 
 366.times do |i|
   date = today.strftime('%Y-%m-%d')
@@ -55,7 +55,7 @@ today = Date.today - 1
     enagements_users_week: rand(10...1000),
     enagements_users_month: rand(10...1000),
   )
-  today = today - 1
+  today = today + 1
 end
 
 puts "create #{FbDb.count} fb data"
@@ -66,7 +66,7 @@ puts "create #{FbDb.count} fb data"
 
 GaDb.destroy_all
 
-today = Date.today - 1
+today = Date.today - 367
 
 366.times do |i|
   date = today.strftime('%Y-%m-%d')
@@ -107,7 +107,7 @@ today = Date.today - 1
     return_visitor: rand(1...1000),
     single_session: rand(100...900),
   )
-  today = today - 1
+  today = today + 1
 end
 
 puts "create #{GaDb.count} ga data"
@@ -116,7 +116,7 @@ puts "create #{GaDb.count} ga data"
 # mailchimp
 MailchimpDb.destroy_all
 
-today = Date.today - 1
+today = Date.today - 366
 
 53.times do |i|
   date = today.strftime('%Y-%m-%d')
@@ -131,7 +131,7 @@ today = Date.today - 1
     most_click_title: SecureRandom.hex,
     most_click_time: date
   )
-  today = today - 7
+  today = today + 7
 end
 
 puts "create #{MailchimpDb.count} mailchimp data"
@@ -175,7 +175,7 @@ puts "create #{AlexaDb.count} alexa data"
 
 FbPostDb.destroy_all
 
-today = Date.today - 1
+today = Date.today - 366
 
 366.times do |i|
   date = today.strftime('%Y-%m-%d')
@@ -187,7 +187,7 @@ today = Date.today - 1
     share: rand(10...100),
     interact: rand(100...1000),
   )
-  today = today - 1
+  today = today + 1
 end
 
 puts "create #{FbPostDb.count} fb_post data"
