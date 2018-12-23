@@ -1,3 +1,5 @@
+require 'capistrano/puma'
+
 require 'capistrano/sidekiq'
 
 # Load DSL and set up stages
