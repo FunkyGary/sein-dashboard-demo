@@ -1,4 +1,6 @@
 class DashboardsController < ApplicationController
+  require 'export_xls'
+
   before_action :authenticate_user!
   before_action :fbinformation, :only => [:index, :facebook]
   before_action :gainformation, :only => [:index, :googleanalytics]
